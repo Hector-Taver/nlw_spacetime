@@ -29,6 +29,8 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - Next.js
 - Node.js
 - Fastify
+- GitHub OAuth
+- JSON Web Token
 - ReactNative
 - Expo
 - TailwindCSS
