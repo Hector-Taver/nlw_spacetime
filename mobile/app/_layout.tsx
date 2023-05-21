@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react'
 import { ImageBackground } from 'react-native'
 import { styled } from 'nativewind'
 import { SplashScreen, Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
+import * as SecureStore from 'expo-secure-store'
 
 import { BaiJamjuree_700Bold } from '@expo-google-fonts/bai-jamjuree'
 import {
@@ -16,11 +18,21 @@ import Stripes from '../src/assets/stripes.svg'
 const StyledStripes = styled(Stripes)
 
 export default function Layout() {
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState<
+    null | boolean
+  >(null)
+
   const [hasLoadedFonts] = useFonts({
     Roboto_400Regular,
     Roboto_700Bold,
     BaiJamjuree_700Bold,
   })
+
+  useEffect(() => {
+    SecureStore.getItemAsync('token').then((token) => {
+      setIsUserAuthenticated(!!token)
+    })
+  }, [])
 
   if (!hasLoadedFonts) {
     return <SplashScreen />
@@ -40,7 +52,11 @@ export default function Layout() {
           headerShown: false,
           contentStyle: { backgroundColor: 'transparent' },
         }}
-      />
+      >
+        <Stack.Screen name="index" redirect={isUserAuthenticated} />
+        <Stack.Screen name="new" />
+        <Stack.Screen name="memories" />
+      </Stack>
     </ImageBackground>
   )
 }
