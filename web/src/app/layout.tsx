@@ -1,9 +1,10 @@
 import { ReactNode } from 'react'
+import { cookies } from 'next/headers'
+
 import {
   Bai_Jamjuree as BaiJamjuree,
   Roboto_Flex as RobotoFlex,
 } from 'next/font/google'
-import { cookies } from 'next/headers'
 
 import { Copyright } from '@/components/Copyright'
 import { Hero } from '@/components/Hero'
